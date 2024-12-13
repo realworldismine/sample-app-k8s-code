@@ -10,17 +10,17 @@ pipeline {
             steps {
                 dir('./user') {
                     script {
-                        user = docker.build "onikaze/sample-app-k8s-user:latest"
+                        user = docker.build "onikaze/sample-app-k8s-user"
                     }
                 }
                 dir('./post') {
                     script {
-                        post = docker.build "onikaze/sample-app-k8s-post:latest"
+                        post = docker.build "onikaze/sample-app-k8s-post"
                     }
                 }
                 dir('./notification') {
                     script {
-                        notification = docker.build "onikaze/sample-app-k8s-notification:latest"
+                        notification = docker.build "onikaze/sample-app-k8s-notification"
                     }
                 }
             }
