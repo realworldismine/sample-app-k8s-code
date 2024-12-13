@@ -6,20 +6,22 @@ pipeline {
     }
 	
     stages {
-        stage('Clone repository') {
-            checkout scm
-        }
-
         stage('Build image') {
             steps {
                 dir('./user') {
-                    sh 'sudo docker build -t onikaze/sample-app-k8s-user:latest .'
+                    script {
+                        user = docker.build "onikaze/sample-app-k8s-user:latest"
+                    }
                 }
                 dir('./post') {
-                    sh 'sudo docker build -t onikaze/sample-app-k8s-post:latest .'
+                    script {
+                        post = docker.build "onikaze/sample-app-k8s-post:latest"
+                    }
                 }
                 dir('./notification') {
-                    sh 'sudo docker build -t onikaze/sample-app-k8s-notification:latest .'
+                    script {
+                        notification = docker.build "onikaze/sample-app-k8s-notification:latest"
+                    }
                 }
             }
         }
