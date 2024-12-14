@@ -62,7 +62,7 @@ def create_user():
             user = request.get_json()
             app.logger.info(f"Received user: {user}")
             
-            conn = sqlite3.connect('test.db')
+            conn = sqlite3.connect('db/test.db')
             c = conn.cursor()
             c.execute("INSERT INTO users (name, email) VALUES (?, ?)", (user['name'], user['email']))
             conn.commit()
@@ -83,7 +83,7 @@ def get_user(id):
     try:
         with REQUEST_LATENCY.labels(endpoint='/users/<int:id>').time():
             REQUEST_COUNT.labels(method=request.method, endpoint='/users/<int:id>').inc()
-            conn = sqlite3.connect('test.db')
+            conn = sqlite3.connect('db/test.db')
             c = conn.cursor()
             c.execute("SELECT * FROM users WHERE id = ?", (id,))
             user = c.fetchone()
@@ -108,7 +108,7 @@ def get_all_users():
     try:
         with REQUEST_LATENCY.labels(endpoint='/users').time():
             REQUEST_COUNT.labels(method=request.method, endpoint='/users').inc()
-            conn = sqlite3.connect('test.db')
+            conn = sqlite3.connect('db/test.db')
             c = conn.cursor()
             c.execute("SELECT * FROM users")
             users = c.fetchall()

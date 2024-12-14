@@ -90,7 +90,7 @@ def post():
             post = request.get_json()
             app.logger.info(f"Received post: {post}")
 
-            conn = sqlite3.connect('test.db')
+            conn = sqlite3.connect('db/test.db')
             c = conn.cursor()
             c.execute("INSERT INTO post (title, content, userid) VALUES (?, ?, ?)", (post['title'], post['content'], post['userid']))
             conn.commit()
@@ -116,7 +116,7 @@ def get_post(id):
     try:
         with REQUEST_LATENCY.labels(endpoint='/post/<int:id>').time():
             REQUEST_COUNT.labels(method=request.method, endpoint='/post/<int:id>').inc()
-            conn = sqlite3.connect('test.db')
+            conn = sqlite3.connect('db/test.db')
             c = conn.cursor()
             c.execute("SELECT * FROM post WHERE id = ?", (id,))
             post = c.fetchone()
