@@ -77,17 +77,14 @@ def notify_user():
                 server.starttls()
 
                 try:
-                    from requests.auth import HTTPBasicAuth
+                    msg = MIMEText(data["content"], 'plain')
 
-                    url = f"https://api.mailgun.net/v3/{os.environ['MAILGUN_DOMAIN']}/messages"
-                    auth = HTTPBasicAuth("api", os.environ["MAILGUN_API_KEY"])
-                    data = {
-                        "from": email_server_from,
-                        "to": user["email"],
-                        "subject": data["title"],
-                        "text": MIMEText(data["content"], 'plain')
-                    }
-                    response = requests.post(url, auth=auth, data=data)
+                    msg["Subject"] = data["title"]
+                    msg["From"] = email_server_from
+                    msg["To"] = user["email"]
+
+                    with smtplib.SMTP("mailhog", 1025) as server:
+                        server.sendmail(email_server_from, [user["email"]], msg.as_string())
                     # server.login(email_server_from, email_server_key)
                     # app.logger.info('Email Server login completed.')
 
