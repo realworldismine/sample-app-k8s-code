@@ -73,8 +73,8 @@ def notify_user():
                 app.logger.info(f"Received User info: {response.status_code} - {response.text}")
                 app.logger.info(f'Sending notification to {user["email"]}: New post titled "{data["title"]}"')
 
-                server = smtplib.SMTP(email_server_address, email_server_port)
-                server.starttls()
+                # server = smtplib.SMTP(email_server_address, email_server_port)
+                # server.starttls()
 
                 try:
                     msg = MIMEText(data["content"], 'plain')
