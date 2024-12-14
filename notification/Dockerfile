@@ -21,6 +21,9 @@ RUN /app/venv/bin/pip install --no-cache-dir -r requirements.txt
 ENV TZ=Asia/Seoul
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TC > /etc/timezone
 
+RUN mkdir log
+RUN mkdir db
+
 # Ensure the cleanup runs before the main application
 ENTRYPOINT ["sh", "-c", "/app/venv/bin/python -u notification.py"]
 
