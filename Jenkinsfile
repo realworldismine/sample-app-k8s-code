@@ -33,6 +33,9 @@ pipeline {
                         user.push("${env.BUILD_NUMBER}")
                         post.push("${env.BUILD_NUMBER}")
                         notification.push("${env.BUILD_NUMBER}")
+                        user.push("latest")
+                        post.push("latest")
+                        notification.push("latest")
                     }
                 }
             }
