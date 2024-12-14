@@ -67,8 +67,7 @@ def notify_user():
             app.logger.info(f"Setting email sender info: {email_server_from}")
 
             # User 서비스로부터 사용자 정보 조회
-            response = requests.get(f'http://user-service:5001/users/{data["userid"]}')
-            #response = requests.get(f'http://127.0.0.1:5001/users/{data["userid"]}')
+            response = requests.get(f'http://user-service/users/{data["userid"]}')
             if response.status_code == 200:
                 user = response.json()
                 app.logger.info(f"Received User info: {response.status_code} - {response.text}")

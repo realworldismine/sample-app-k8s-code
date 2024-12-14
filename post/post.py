@@ -100,8 +100,7 @@ def post():
 
         # Notification 서비스 호출
         headers = {'Content-Type': 'application/json; charset=utf-8'}
-        response = requests.post(f'http://notification-service:5003/notify', json=post, headers=headers)
-        #requests.post('http://127.0.0.1:5003/notify', json=post, headers=headers)
+        response = requests.post(f'http://notification-service/notify', json=post, headers=headers)
         app.logger.info(f"Notification sent: {response.status_code} - {response.text}")
 
         return jsonify({'id': post_id}), 201
